@@ -1,10 +1,14 @@
-import React from 'react'
+import {useEffect, useState} from 'react'
+import UsersResults from '../components/users/UsersResults'
+import axios from "axios"
 
 function Home() {
+
   return (
-    <div>
-        <h1 className='text-6xl'>Welcome</h1>
-    </div>
+    <>
+    {/* search component */}
+        <UsersResults></UsersResults>
+    </>
   )
 }
 
