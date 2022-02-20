@@ -1,38 +1,15 @@
-import {useEffect, useState} from 'react'
-import axios from "axios"
+import {useEffect, useContext} from 'react'
 import Spinner from '../layout/Spinner';
 import UsersItem from './UsersItem';
+import { githubContext } from '../context/github/GithubContext';
 
 
 function UsersResults() {
 
+    const {isLoading, users} = useContext(githubContext)
     
-  const [users, setUsers] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-
-  useEffect(()=>{
     
-    fetchUsers()
 
-  },[])
-
-  const fetchUsers = async ()=>{
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`
-      }
-    }
-
-    const res = await axios.get(`${process.env.REACT_APP_GITHUB_URL}/users`, config)
-    
-    setUsers(res.data);
-    setIsLoading(false);
-    // console.log(res.data);
-
-
-  }
 //   console.log(users);
 
   return isLoading ? <Spinner></Spinner> : (
