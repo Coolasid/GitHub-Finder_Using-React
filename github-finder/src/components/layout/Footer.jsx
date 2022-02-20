@@ -11,7 +11,7 @@ function Footer() {
 
         <div>
 
-        <FaSlackHash className='text-5xl '></FaSlackHash>
+        <FaSlackHash className='text-4xl '></FaSlackHash>
         </div>
 
         <div>

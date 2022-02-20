@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import axios from "axios"
 import Spinner from '../layout/Spinner';
+import UsersItem from './UsersItem';
 
 
 function UsersResults() {
@@ -39,7 +40,7 @@ function UsersResults() {
         {
             users.map((user)=>{
             console.log(user.login);
-           return <h3>{user.login}</h3>
+           return <UsersItem key={user.id} user={user}></UsersItem>
         })}
     </div>
   )
