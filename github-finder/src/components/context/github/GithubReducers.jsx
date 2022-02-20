@@ -18,6 +18,12 @@ export const githubReducer = (state, action) =>{
                 ...state,
                 isLoading:true
             }
+        case "GET_SINGLE_USER":
+            return {
+                ...state,
+                user: action.payload,
+                isLoading:false
+            }
 
         default:
             return state;

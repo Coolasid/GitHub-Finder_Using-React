@@ -11,15 +11,16 @@ export const GithubProvider = ({children}) =>{
 
     const initalState = {
         users: [],
+        user:{},
         isLoading: false 
     }
-
+    
     const [state, dispatch] = useReducer(githubReducer, initalState)
-
-  
-//get search results but for testing purpose
-  const searchUsers = async (text)=>{
-    setLoading();
+    
+    
+    //get search results but for testing purpose
+    const searchUsers = async (text)=>{
+        setLoading();
 
     const config = {
       headers: {
@@ -32,7 +33,7 @@ export const GithubProvider = ({children}) =>{
     })
 
     const res = await axios.get(`${GITHUB_URL}/search/users?${params}`, config)
-    console.log(res);
+    // console.log(res);
 
     dispatch({
         type:"GET_USERS",
@@ -41,6 +42,35 @@ export const GithubProvider = ({children}) =>{
     })
     // console.log(res.data)
   }
+
+  //get a single user
+  const singleUser = async (login) =>{
+    // setLoading();
+
+    setLoading();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`
+      }
+    }
+
+    const res = await axios.get(`${GITHUB_URL}/users/${login}`, config)
+
+    if(res.status === 404){
+        window.location = "/notfound"
+    }
+
+    // console.log(res);
+
+    dispatch({
+        type:"GET_SINGLE_USER",
+        payload:res.data
+    })
+
+  }
+
+  
 
   // SetLoading=>
 
@@ -57,6 +87,6 @@ export const GithubProvider = ({children}) =>{
 
   }
 
-  return <githubContext.Provider value={{searchUsers, clearSearch, users:state.users, isLoading:state.isLoading}}>{children}</githubContext.Provider>
+  return <githubContext.Provider value={{searchUsers, singleUser,  clearSearch, users:state.users, user:state.user, isLoading:state.isLoading}}>{children}</githubContext.Provider>
 
 }

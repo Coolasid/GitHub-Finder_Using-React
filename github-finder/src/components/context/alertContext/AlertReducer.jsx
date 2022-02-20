@@ -1,9 +1,14 @@
 import React from 'react'
 
-function AlertReducer() {
-  return (
-    <div>AlertReducer</div>
-  )
+function AlertReducer(state, action) {
+    switch(action.type){
+        case "SET_ALERT":
+            return action.payload
+        case "REMOVE_ALERT":
+            return null
+        default:
+            return state
+    }
 }
 
 export default AlertReducer
