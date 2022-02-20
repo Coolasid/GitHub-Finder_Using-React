@@ -75,6 +75,11 @@ export const GithubProvider = ({children}) =>{
   const getRepos = async(login) =>{
 
     setLoading();
+
+    const params = new URLSearchParams({
+        sort: "created",
+        per_page: 10,
+    })
     
     const config = {
         headers:{
@@ -82,7 +87,7 @@ export const GithubProvider = ({children}) =>{
         }
     }
 
-    const res = await axios.get(`${GITHUB_URL}/users/${login}/repos`,config )
+    const res = await axios.get(`${GITHUB_URL}/users/${login}/repos?${params}`,config )
 
     dispatch({
         type:"GET_USER_REPO",
