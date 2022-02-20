@@ -5,10 +5,11 @@ import {FaCodepen, FaStore, FaUserFriends, FaUsers} from "react-icons/fa"
 import {Link} from "react-router-dom";
 import Spinner from '../components/layout/Spinner';
 import RepoList from '../components/repos/RepoList';
+import {getUserAndRepos } from "../components/context/github/GithubActions"
 
 function User() {
 
-    let { user, singleUser, isLoading, repos, getRepos} = useContext(githubContext)
+    let { user, isLoading, repos, dispatch} = useContext(githubContext)
 
     const params = useParams();
 
@@ -29,11 +30,30 @@ function User() {
     hireable,
     } = user
 
-    useEffect(()=>{
-        singleUser(params.login)
-        getRepos(params.login)
+    useEffect( ()=>{
+        
+        dispatch({type:"SET_LOADING"})
+        getData()
+        
     }, [])
+    
+    const getData = async() =>{
 
+        let {user, repos} = await getUserAndRepos(params.login)
+  
+        // console.log(user);
+        // console.log(repos);
+      
+        dispatch({ 
+            type:"GET_SINGLE_USER",
+            payload:user
+        })
+  
+        dispatch({
+            type:"GET_USER_REPO",
+            payload:repos
+        })
+    }
     // console.log(user);
 
   return isLoading ? <Spinner></Spinner> : (
