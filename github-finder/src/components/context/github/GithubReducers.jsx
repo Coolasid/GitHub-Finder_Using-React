@@ -8,6 +8,11 @@ export const githubReducer = (state, action) =>{
                 users: action.payload,
                 isLoading:false
             }
+        case "CLEAR_SEARCH":
+            return {
+                ...state,
+                users: action.payload,
+            }
         case "SET_LOADING":
             return {
                 ...state,

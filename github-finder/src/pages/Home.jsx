@@ -1,13 +1,14 @@
 import {useEffect, useState} from 'react'
 import UsersResults from '../components/users/UsersResults'
 import axios from "axios"
-import userSearch from '../components/users/userSearch'
+import UserSearch from '../components/users/UserSearch'
+
 
 function Home() {
 
   return (
     <>
-        <userSearch></userSearch>
+        <UserSearch></UserSearch> 
         <UsersResults></UsersResults>
     </>
   )
