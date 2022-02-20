@@ -45,13 +45,8 @@ function User() {
         // console.log(repos);
       
         dispatch({ 
-            type:"GET_SINGLE_USER",
-            payload:user
-        })
-  
-        dispatch({
-            type:"GET_USER_REPO",
-            payload:repos
+            type:"GET_USER_AND_REPOS",
+            payload:{user:user, repos:repos}
         })
     }
     // console.log(user);

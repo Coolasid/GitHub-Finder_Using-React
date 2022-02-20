@@ -13,10 +13,11 @@ export const githubReducer = (state, action) =>{
                 ...state,
                 users: action.payload,
             }
-        case "GET_USER_REPO":
+        case "GET_USER_AND_REPOS":
             return {
                 ...state,
-                repos:action.payload,
+                repos:action.payload.repos,
+                user: action.payload.user,
                 isLoading:false
 
             }
@@ -24,12 +25,6 @@ export const githubReducer = (state, action) =>{
             return {
                 ...state,
                 isLoading:true
-            }
-        case "GET_SINGLE_USER":
-            return {
-                ...state,
-                user: action.payload,
-                isLoading:false
             }
 
         default:
