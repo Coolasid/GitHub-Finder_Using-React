@@ -29,7 +29,7 @@ const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
     const [user, repos] = await Promise.all([github.get(`/users/${login}`), github.get(`/users/${login}/repos`) ]) 
 
-    console.log(user, repos);
+    // console.log(user, repos);
     if(user.status === 404){
         window.location = "/notfound"
     }

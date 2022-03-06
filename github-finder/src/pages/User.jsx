@@ -12,6 +12,7 @@ function User() {
     let { user, isLoading, repos, dispatch} = useContext(githubContext)
 
     const params = useParams();
+    
 
     let {
         name,
@@ -41,8 +42,8 @@ function User() {
 
         let {user, repos} = await getUserAndRepos(params.login)
   
-        // console.log(user);
-        // console.log(repos);
+        console.log(user);
+        console.log(repos);
       
         dispatch({ 
             type:"GET_USER_AND_REPOS",
