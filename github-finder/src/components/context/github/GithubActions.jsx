@@ -1,41 +1,40 @@
-import axios  from "axios";
-const GITHUB_URL = process.env.REACT_APP_GITHUB_URL;
+import axios from 'axios';
+const GITHUB_URL = process.env.BASE_API;
 const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN;
 
+const github = axios.create({
+  baseURL: 'https://api.github.com',
+  headers: { Authorization: `token ${GITHUB_TOKEN}` },
+});
 
-    const github = axios.create({
-        baseURL: GITHUB_URL,
-        headers:{Authorization: `token ${GITHUB_TOKEN}`}
-    }) 
+//get search results but for testing purpose
+export const searchUsers = async (text) => {
+  const params = new URLSearchParams({
+    q: text,
+  });
 
-    //get search results but for testing purpose
-  export  const searchUsers = async (text)=>{
+  const res = await github.get(`/search/users?${params}`);
+  // console.log(res);
 
-    const params = new URLSearchParams({
-        q:text
-    })
+  return res.data.items;
+  // console.log(res.data)
+};
 
-    const res = await github.get(`/search/users?${params}`)
-    // console.log(res);
+//get a single user and repos
+export const getUserAndRepos = async (login) => {
+  // setLoading();
 
-    return res.data.items;
-    // console.log(res.data)
+  const [user, repos] = await Promise.all([
+    github.get(`/users/${login}`),
+    github.get(`/users/${login}/repos`),
+  ]);
+
+  // console.log(user, repos);
+  if (user.status === 404) {
+    window.location = '/notfound';
   }
 
-  
-  //get a single user and repos
- export const getUserAndRepos = async (login) =>{
-    // setLoading();
+  // console.log(res);
 
-    const [user, repos] = await Promise.all([github.get(`/users/${login}`), github.get(`/users/${login}/repos`) ]) 
-
-    // console.log(user, repos);
-    if(user.status === 404){
-        window.location = "/notfound"
-    }
-
-    // console.log(res);
-
-    return {user:user.data, repos:repos.data}
-
-  } 
+  return { user: user.data, repos: repos.data };
+};
